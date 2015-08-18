@@ -1,17 +1,5 @@
-update=01-Jan-14 7:40:15 PM
+update=Sun 09 Aug 2015 08:22:08 AM EDT
 last_client=kicad
-[eeschema]
-version=1
-LibDir=
-NetFmtName=PcbnewAdvanced
-RptD_X=0
-RptD_Y=100
-RptLab=1
-LabSize=40
-[eeschema/libraries]
-LibName1=uControl_Libs/Conn-raspberry
-LibName2=uControl_Libs/power
-LibName3=uControl_Libs/uControl
 [cvpcb]
 version=1
 NetIExt=net
@@ -41,3 +29,11 @@ LibDir=
 LibName1=uControl_Libs/uControl
 [general]
 version=1
+[eeschema]
+version=1
+LibDir=
+[eeschema/libraries]
+LibName1=uControl_v3-rescue
+LibName2=uControl_Libs/Conn-raspberry
+LibName3=uControl_Libs/power
+LibName4=uControl_Libs/uControl
