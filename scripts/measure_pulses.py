@@ -1,6 +1,8 @@
 from uControl import *
 import util
 
+def plot_gage_and_flow(hirate):
+    
 def plot_hirate(hirate):
     dt = 0.004
     n_tap = 100
