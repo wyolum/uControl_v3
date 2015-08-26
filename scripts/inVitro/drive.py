@@ -49,21 +49,12 @@ timeout = .01
 
 def connect():
     global s, PI
-    try:
-        import RPi.GPIO as GPIO
-        PI = True
-        port = '/dev/ttyS0'
-        GPIO.setwarnings(False)
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(18, GPIO.OUT)
-        GPIO.output(18, GPIO.HIGH)
-    except ImportError:
-        PI = False
-        avail = glob("/dev/ttyU*")
-        if avail:
-            port = avail[-1]
-        else:
-            port = None
+    PI = False
+    avail = glob("/dev/ttyU*")
+    if avail:
+        port = avail[-1]
+    else:
+        port = None
     if port:
         s = Serial(port, baudrate, timeout=timeout)
     else:
