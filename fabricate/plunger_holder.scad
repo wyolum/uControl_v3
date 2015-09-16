@@ -1,4 +1,5 @@
 inch = 25.4;
+$fn=25;
 
 module nix(){
   translate([0, 0, -3])
@@ -25,6 +26,12 @@ intersection(){
   
 }
 
+translate([15, 0, -6])
+difference(){
+  cylinder(r=4, h=10); 
+  translate([-8, -4, -.1])cube([8, 8, 11]);
+}
+
 d = 3.81;
 D = 6;
 l = 15;
@@ -32,5 +39,5 @@ l = 15;
 translate([d/2, 0, 62 - 2 * l])
 union(){
   translate([0, 0, l])cylinder(r=d/2, h=l);
-  translate([0, 0, 0])cylinder(r=D/2, h=l);
 }
+
