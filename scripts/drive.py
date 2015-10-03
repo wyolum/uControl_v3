@@ -47,7 +47,7 @@ done = False
 baudrate = 115200
 timeout = .01
 
-def connect():
+def connect(port=None):
     global s, PI
     try:
         import RPi.GPIO as GPIO
@@ -59,17 +59,18 @@ def connect():
         GPIO.output(18, GPIO.HIGH)
     except ImportError:
         PI = False
-        avail = glob("/dev/ttyU*")
-        if avail:
-            port = avail[-1]
-        else:
-            port = None
+        if not port: ### try to find a port, take last available
+            avail = glob("/dev/ttyU*")
+            if avail:
+                port = avail[-1]
+            else:
+                port = None
     if port:
         s = Serial(port, baudrate, timeout=timeout)
     else:
         s = None
     return s
-connect()
+# connect()
 
 # s.rtscts = True
 #         [init,  interval, pump_rate, valve, status]
