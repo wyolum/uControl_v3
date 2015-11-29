@@ -31,7 +31,6 @@ def plot_hirate(hirate, color):
     pylab.plot(lpd[troughs], deltas)
     
 def test(filename):
-=======
     pylab.ylabel('Low Pass mmHG')
     pylab.xlabel('Time')
     times = hirate[:,0] / 1000.
@@ -115,7 +114,6 @@ if __name__ == '__main__':
         test(filename)
     else:
         plot_hirate(pickle.load(open(filename)))
-=======
     # hirate = pickle.load(open('bartendro_test_002.pkl'))
     ids = [4]
     for id in ids:
