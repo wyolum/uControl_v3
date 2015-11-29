@@ -57,7 +57,6 @@ def test(filename):
 
     
 def test(basename, port=None):
->>>>>>> 50863957b4bae477e73a3b4163108e43922d53f7
     print 'here we go'
     uc = uControl(port=port)
     try:
@@ -84,11 +83,7 @@ def test(basename, port=None):
         print 'len(uc.hirate)', len(uc.hirate)
         hirate = array(uc.hirate)
         if len(uc.hirate) > 0:
-<<<<<<< HEAD
-            pfn = filename
-=======
             pfn = '%s%03d.pkl' % (basename, len(glob.glob('%s*.pkl' % basename)))
->>>>>>> 50863957b4bae477e73a3b4163108e43922d53f7
             pickle.dump(hirate, open(pfn, 'w'))
             print 'wrote', pfn
             # plot_hirate(hirate)
@@ -102,7 +97,6 @@ def test(basename, port=None):
 
 # if True:
 if False:
-<<<<<<< HEAD
     if len(sys.argv) > 1:
         pfn = sys.argv[1]
     else:
@@ -171,4 +165,3 @@ if __name__ == '__main__':
 
     except ValueError:
         raise usage
->>>>>>> 50863957b4bae477e73a3b4163108e43922d53f7
