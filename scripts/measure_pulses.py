@@ -1,8 +1,9 @@
+import sys
 from uControl import *
 import util
 
 def plot_gage_and_flow(hirate):
-    
+    pass
 def plot_hirate(hirate):
     dt = 0.004
     n_tap = 100
@@ -10,21 +11,22 @@ def plot_hirate(hirate):
     
     lpd = util.filter(hirate[:,1] - hirate[0, 1], lp_taps) + hirate[0, 1]
 
-    ax = pylab.subplot(311)
+    ax = pylab.subplot(211)
     times = hirate[:,0]
     pylab.plot(times, lpd)
     peaks, troughs = util.find_peaks_and_troughs(lpd, eps=.1, edit=False)
+    if peaks[0] < troughs[0]:
+        peaks = peaks[1:]
+    if peaks[-1] < troughs[-1]:
+        troughs = troughs[:-1]
     pylab.plot(times[peaks], lpd[peaks], 'ro')
     pylab.plot(times[troughs], lpd[troughs], 'bo')
     deltas = lpd[peaks] - lpd[troughs]
+    print std(deltas)
+    pylab.subplot(212)
+    pylab.plot(lpd[troughs], deltas)
     
-    pylab.subplot(312)
-    pylab.plot(lpd[troughs], 1.5/deltas)
-
-    pylab.subplot(313)
-    pylab.plot(lpd[troughs], deltas/1.5)
-    
-def test():
+def test(filename):
     print 'here we go'
     uc = uControl()
     try:
@@ -46,7 +48,7 @@ def test():
         print 'len(uc.hirate)', len(uc.hirate)
         hirate = array(uc.hirate)
         if len(uc.hirate) > 0:
-            pfn = 'hirate.pkl'
+            pfn = filename
             pickle.dump(hirate, open(pfn, 'w'))
             print 'wrote', pfn
             plot_hirate(hirate)
@@ -59,9 +61,21 @@ def test():
     pylab.show()
 
 if False:
-    hirate = pickle.load(open('bartendro_test_002.pkl'))
+    if len(sys.argv) > 1:
+        pfn = sys.argv[1]
+    else:
+        pfn = 'bartendro_test_002.pkl'
+    hirate = pickle.load(open(pfn))
     plot_hirate(hirate)
     pylab.show()
     here
 if __name__ == '__main__':
-    test()
+    try:
+        command = sys.argv[1]
+        filename = sys.argv[2]
+    except:
+        raise ValueError("python measure_pulses.py <meas|plot> <filename>")
+    if command == 'meas':
+        test(filename)
+    else:
+        plot_hirate(pickle.load(open(filename)))
