@@ -11,7 +11,7 @@ class uControl:
     '''
     Behind the scenes interface to uControl.
     '''
-    def __init__(self, listener=None, dummy=False):
+    def __init__(self, listener=None, dummy=False, port=None):
         self.__abort = False
         self.recording = False      # flag to indicate times when data is to be captured
         self.hirate = []            # store hirate data when recording
@@ -46,6 +46,7 @@ class uControl:
         subscribe(StatusPID.PID, self.status_cb)
 
         ### connect to uControl hardware
+        connect(port)
         send_cmd(cuff_pressure=True, interval=1)   ## interval=1 ==> .004 sec dt
         tries = 0
         if not dummy:
@@ -187,7 +188,8 @@ class uControl:
             send_cmd(valve=True, valve_state=True)
         
         while self.cuff_pressure > self.max_pressure:
-            serial_interact()
+            for i in range(100):
+                serial_interact_once()
         send_cmd(valve=False, valve_state=True)
         
     def record(self, recording=True):
@@ -210,11 +212,11 @@ class uControl:
         self.max_pressure = 0
         self.min_pressure = -1
 
-def test():
+def test(port=None):
     print 'here we go'
     # while s.read(100000):
     #     print 'flush serial'
-    uc = uControl()
+    uc = uControl(port=port)
     # junk = s.read(1000)
     print 'here'
     try:
@@ -262,6 +264,7 @@ def test():
     pylab.show()
 
 if __name__ == '__main__':
-    test()
+    port = None
+    test(port)
 
     
