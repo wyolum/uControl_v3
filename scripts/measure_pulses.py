@@ -113,7 +113,8 @@ if __name__ == '__main__':
     if command == 'meas':
         test(filename)
     else:
-        plot_hirate(pickle.load(open(filename)))
+        plot_hirate(pickle.load(open(filename)), 'b')
+        pylab.show()
     # hirate = pickle.load(open('bartendro_test_002.pkl'))
     ids = [4]
     for id in ids:
